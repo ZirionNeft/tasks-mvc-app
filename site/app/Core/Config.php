@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace App\Core;
 
 /**
  * Class Config
@@ -28,8 +28,9 @@ class Config
   {
     if (!isset(static::$config[$configName])) {
       static::$configName = $configName;
-      if (!file_exists(self::getConfigPath())) {
-        throw new \Exception('Config is not exists!');
+      $configPath = self::getConfigPath();
+      if (!file_exists($configPath)) {
+        throw new \Exception("Config ${configPath} is not exists!");
       }
       self::mergeConfig($configName, require_once self::getConfigPath());
     }
@@ -74,6 +75,6 @@ class Config
    */
   private static function getConfigPath(): string
   {
-    return CONFIG_PATH . DS . static::$configName . '.php';
+    return CONFIG_PATH  . DS . static::$configName . '.php';
   }
 }
