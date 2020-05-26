@@ -11,4 +11,9 @@ class TemplateFacade
     $blade = App::getBlade();
     return $blade->render($view, $data, $mergeData);
   }
+
+  public static function getTemplateEngine()
+  {
+    return App::getBlade();
+  }
 }

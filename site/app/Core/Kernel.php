@@ -43,8 +43,10 @@ class Kernel
       throw new InvalidRouteException();
     }
 
-    return $reflector
-      ->getMethod($actionName)
-      ->invokeArgs($reflector->newInstance(), $params);
+    $reflectorMethod = $reflector->getMethod($actionName);
+
+    return $reflectorMethod->invoke(
+      $reflector->newInstance(),
+      count($reflectorMethod->getParameters()) > 0 ? $params : null);
   }
 }

@@ -4,3 +4,5 @@ docker/postgres/scripts/database.sql
 /site/cache/
 /site/.env
 /site/composer.lock
+/site/node_modules/
+/site/yarn.lock
