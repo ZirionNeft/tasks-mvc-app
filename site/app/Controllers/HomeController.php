@@ -20,9 +20,17 @@ class HomeController extends Controller
 
   public function index(array $params = null) {
 
+    $order = [
+      'column'  => $_COOKIE['order_column'] ?? '1',
+      'type'    => $_COOKIE['order_type'] ?? '1'
+    ];
+
     $alert = $params['alert'] ?? null;
     $taskModel = new Task();
-    $tasks = $taskModel->getAll();
+    $tasks = $taskModel->getAll(
+      $order['column'] == '3' ? 'done' : ($order['column'] == '2' ? 'username' : 'email'),
+      $order['type'] == '1' ? Task::ORDER_DESC : Task::ORDER_ASC
+    );
 
     $currentPage = (!is_null($params) && array_key_exists('page', $params)) ? (int)$params['page'] : 1;
     $perPage = 3;
@@ -32,7 +40,8 @@ class HomeController extends Controller
 
     return parent::render('pages.home', [
       'paginator' => $paginator,
-      'alert'     => $alert
+      'alert'     => $alert,
+      'order'     => $order
     ]);
   }
 }

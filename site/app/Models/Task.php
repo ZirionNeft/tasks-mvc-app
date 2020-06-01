@@ -8,9 +8,9 @@ use PDO;
 class Task extends Model
 {
 
-  public function getAll($orderColumn = 'id', $orderBy = self::ORDER_DESC): array
+  public function getAll($orderColumn = 'id', $orderType = self::ORDER_DESC): array
   {
-    return parent::fetchAssocArray("SELECT id,username,email,content,done,edited FROM tasks ORDER BY {$orderColumn} {$orderBy}");
+    return parent::fetchAssocArray("SELECT id,username,email,content,done,edited FROM tasks ORDER BY {$orderColumn} {$orderType}");
   }
 
   public function getById(int $id): array
