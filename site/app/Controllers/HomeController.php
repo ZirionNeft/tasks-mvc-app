@@ -9,6 +9,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class HomeController extends Controller
 {
+  protected $currentRoute = '/Home/index';
+
   public function __construct()
   {
     LengthAwarePaginator::viewFactoryResolver(function () {
@@ -27,6 +29,6 @@ class HomeController extends Controller
 
     $paginator = new LengthAwarePaginator($currentItems, count($tasks), $perPage, $currentPage);
 
-    return $this->render('home', ['paginator' => $paginator]);
+    return parent::render('home', ['paginator' => $paginator]);
   }
 }

@@ -3,26 +3,32 @@
 namespace App\Models;
 
 use App\Core\Model;
+use PDO;
 
 class Task extends Model
 {
-  public function getAll()
+  public function getAll(): array
   {
-    return parent::fetchAssocArray('SELECT id,name,email,text,done FROM tasks');
+    return parent::fetchAssocArray('SELECT id,username,email,content,done FROM tasks');
   }
 
   public function getById(int $id): array
   {
-    return parent::fetchRow("SELECT id,name,email,text,done FROM tasks WHERE id={$id}");
+    return parent::fetchRow("SELECT id,username,email,content,done FROM tasks WHERE id={$id}");
   }
 
   public function create(array $data): int
   {
-    return parent::getConnection()->exec("INSERT INTO tasks (name, email, text, done) VALUES ({$data['name']}, {$data['email']}, {$data['text']}, {$data['done']})");
+    $statement = parent::getConnection()->prepare("INSERT INTO tasks (username, email, content) VALUES (:username, :email, :content)");
+    return $statement->execute($data);
   }
 
-  public function update(int $data): int
+  public function update(array $data): int
   {
-    return parent::getConnection()->exec("UPDATE tasks SET done={$data['done']}, text=`{$data['text']}` WHERE id={$data['id']}");
+    $statement = parent::getConnection()->prepare("UPDATE tasks SET done=:done, content=:content WHERE id=:id");
+    $statement->bindValue(':done', $data['done'], PDO::PARAM_BOOL);
+    $statement->bindValue(':content', $data['content']);
+    $statement->bindValue(':id', $data['id'], PDO::PARAM_INT);
+    return $statement->execute();
   }
 }

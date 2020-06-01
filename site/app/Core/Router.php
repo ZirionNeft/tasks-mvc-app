@@ -30,18 +30,4 @@ class Router
     return $result;
   }
 
-  private static function getRoute($route)
-  {
-    $uri = $_SERVER['REQUEST_URI'];
-    if(($getRequestStartsFrom = strpos($uri, '?')) !== false){
-      $route = substr($uri, 0, $getRequestStartsFrom);
-    }
-    return $route ?? $_SERVER['REQUEST_URI'];
-  }
-
-  public static function currentRoute()
-  {
-
-  }
-
 }

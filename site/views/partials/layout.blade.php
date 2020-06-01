@@ -16,6 +16,11 @@
 
 
   <div class="container">
+    @isset($alert)
+      <div class="alert alert-success m-5" role="alert">
+        {{ $alert }}
+      </div>
+    @endisset
     @yield('content')
   </div><!-- /.container -->
 

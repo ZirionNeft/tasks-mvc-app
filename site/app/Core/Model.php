@@ -65,6 +65,7 @@ abstract class Model
     static::$port = $config['port'];
 
     self::$connection = new PDO('pgsql:host='. static::$host .';dbname=' . static::$dbName, static::$user, static::$password);
+    self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
 
   /**
