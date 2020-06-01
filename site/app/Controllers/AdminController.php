@@ -44,7 +44,12 @@ class AdminController extends Controller
         if (!$loginForm->hasErrors()) {
 
           if (Auth::login($data['login'], $data['password'])) {
-            Router::redirect('/admin/profile?success=1');
+            Router::redirect('/admin/profile', [
+              "alert" => [
+                "text" => "Вы успешно вошли в систему!",
+                "status" => "success"
+              ]
+            ]);
           } else {
             $alert = ["text" => "Неверные данные для входа", "status" => "danger"];
           }
@@ -68,7 +73,7 @@ class AdminController extends Controller
   {
     $this->currentRoute .= 'profile';
 
-    $alert = (isset($params['success']) && $params['success']) ? ["text" => "Вы успешно вошли в систему!", "status" => "success"] : null;
+    $alert = $params['alert'] ?? null;
 
     return parent::render('pages.profile', [
       'alert' => $alert
@@ -88,6 +93,4 @@ class AdminController extends Controller
       ]
     ]);
   }
-
-
 }

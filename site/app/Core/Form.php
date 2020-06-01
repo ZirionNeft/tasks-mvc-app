@@ -54,6 +54,13 @@ class Form
       elseif (!preg_match("/^[a-z0-9_-]{3,16}$/", $this->data[$field]) && in_array('name', $rules)) {
         $errors = array_merge($errors, ["Поле должно быть длиной от 3 до 16 и не содержать спец.символов"]);
       }
+      elseif (in_array('checkbox', $rules)) {
+        if (!isset($this->data[$field])) {
+          $this->data[$field] = false;
+        } else {
+          $this->data[$field] = (bool)$this->data[$field];
+        }
+      }
 
       if (!empty($errors))
         $this->errors[$field] = $errors;

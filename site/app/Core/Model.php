@@ -7,6 +7,9 @@ use PDO;
 abstract class Model
 {
 
+  const ORDER_DESC = 'desc';
+  const ORDER_ASC = 'asc';
+
   /**
    * @var string
    */
@@ -87,7 +90,7 @@ abstract class Model
   public static function fetchRow(string $sql)
   {
     self::checkConnection();
-    return self::$connection->query($sql)->fetchColumn();
+    return self::$connection->query($sql)->fetch(PDO::FETCH_ASSOC);
   }
 
   /**

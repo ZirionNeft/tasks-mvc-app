@@ -20,6 +20,7 @@ class HomeController extends Controller
 
   public function index(array $params = null) {
 
+    $alert = $params['alert'] ?? null;
     $taskModel = new Task();
     $tasks = $taskModel->getAll();
 
@@ -29,6 +30,9 @@ class HomeController extends Controller
 
     $paginator = new LengthAwarePaginator($currentItems, count($tasks), $perPage, $currentPage);
 
-    return parent::render('pages.home', ['paginator' => $paginator]);
+    return parent::render('pages.home', [
+      'paginator' => $paginator,
+      'alert'     => $alert
+    ]);
   }
 }
