@@ -29,6 +29,6 @@ class HomeController extends Controller
 
     $paginator = new LengthAwarePaginator($currentItems, count($tasks), $perPage, $currentPage);
 
-    return parent::render('home', ['paginator' => $paginator]);
+    return parent::render('pages.home', ['paginator' => $paginator]);
   }
 }

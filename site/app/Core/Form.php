@@ -14,8 +14,6 @@ class Form
 
   public function __construct(array $fields = [])
   {
-    session_start();
-
     $this->fields = $fields;
     $this->data = [];
     $this->errors = [];

@@ -30,4 +30,25 @@ class Router
     return $result;
   }
 
+  /**
+   * @param string $uri
+   * @param array $params
+   */
+  public static function redirect(string $uri, $params = []): void
+  {
+    $host = $_SERVER["HTTP_HOST"];
+    $queryParams = '';
+
+    $protocol='http';
+    if (isset($_SERVER['HTTPS']))
+      if (strtoupper($_SERVER['HTTPS'])=='ON')
+        $protocol='https';
+
+    if (!empty($params)) {
+      $queryParams = '?' . http_build_query($params);
+    }
+
+    header("Location: {$protocol}://{$host}{$uri}{$queryParams}");
+  }
+
 }

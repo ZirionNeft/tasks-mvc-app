@@ -9,7 +9,6 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-{{--  <meta name="csrf-token" content="{{ csrf_token() }}">--}}
 </head>
 <body>
     @include('partials.header')
@@ -17,8 +16,8 @@
 
   <div class="container">
     @isset($alert)
-      <div class="alert alert-success m-5" role="alert">
-        {{ $alert }}
+      <div class="alert alert-{{ $alert['status'] }} m-5" role="alert">
+        {{ $alert['text'] }}
       </div>
     @endisset
     @yield('content')

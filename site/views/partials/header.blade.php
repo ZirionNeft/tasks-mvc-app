@@ -1,4 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  @php
+    use App\Core\Auth;
+  @endphp
   <a class="navbar-brand" href="/">ЗАДАЧИ</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -7,7 +10,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">Админ.Вход</a>
+        @if(Auth::isLoggedIn())
+          <a class="nav-link" href="/admin/profile">{{ Auth::currentUsername() }}</a>
+        @else
+          <a class="nav-link" href="/admin/login">Авторизация</a>
+        @endif
       </li>
       @if($currentRoute === '/' || strpos($currentRoute, '/Home/index') !== false)
       <li class="nav-item dropdown">

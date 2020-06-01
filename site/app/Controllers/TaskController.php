@@ -10,7 +10,7 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
-  protected $currentRoute = '/Task/';
+  protected $currentRoute = '/task/';
 
   public function create($params = null)
   {
@@ -43,7 +43,7 @@ class TaskController extends Controller
     return parent::render('task.create', [
       'errors'      => $errors,
       'data'        => $data,
-      'alert'       => $taskCreated ? 'Ваша задача успешно создана!' : null
+      'alert'       => $taskCreated ? ['text' => 'Ваша задача успешно создана!', 'status' => 'success'] : null
     ]);
   }
 
