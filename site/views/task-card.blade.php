@@ -15,7 +15,7 @@
           <a href="/task/edit?id={{ $task['id'] }}" type="button" class="btn btn-sm btn-outline-secondary">Изменить</a>
         @endif
         <h4><span class="badge badge-secondary {{ $task['done'] ? 'badge-success' : 'badge-warning'}}">
-          Задача {{ $task['done'] ? 'закрыта' : 'открыта'}}</span>
+          Задача {{ $task['done'] ? 'выполнена' : 'открыта'}}</span>
         </h4>
       </div>
 

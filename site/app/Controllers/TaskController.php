@@ -19,7 +19,7 @@ class TaskController extends Controller
     $this->currentRoute .= 'create';
     $errors = [];
     $data = [];
-    $taskCreated = false;
+    $alert = $params['alert'] ?? null;
 
     if(!empty($_POST)) {
       $taskCreatingForm = new Form([
@@ -36,6 +36,17 @@ class TaskController extends Controller
         if (!$taskCreatingForm->hasErrors()) {
           $task = new Task();
           $taskCreated = (bool)$task->create($data);
+
+          if ($taskCreated) {
+            Router::redirect('/', [
+              'alert' => [
+                'text' => 'Ваша задача успешно создана!',
+                'status' => 'success'
+              ]
+            ]);
+
+            return null;
+          }
         }
       } catch (InvalidFormException $e) {
         echo $e;
@@ -45,7 +56,7 @@ class TaskController extends Controller
     return parent::render('task.create', [
       'errors'      => $errors,
       'data'        => $data,
-      'alert'       => $taskCreated ? ['text' => 'Ваша задача успешно создана!', 'status' => 'success'] : null
+      'alert'       => $alert
     ]);
   }
 
