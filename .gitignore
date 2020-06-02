@@ -1,6 +1,5 @@
 .idea/
 docker/postgres/scripts/database.sql
 /site/vendor/
-/site/cache/
 /site/.env
 /site/node_modules/
